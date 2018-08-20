@@ -1,5 +1,5 @@
 name:                robot
-version:             0.1.0
+version:             0.2.0
 synopsis:            code robot
 description:         Robot fight code snippets.
 homepage:            https://github.com/frankhjung/robot#readme
@@ -33,14 +33,14 @@ library
   ghc-options:      -Wall
   build-depends:    base >= 4.7 && <= 5.0
 
--- test-suite test
---   default-language: Haskell2010
---   type:             exitcode-stdio-1.0
---   hs-source-dirs:   test
---   main-is:          Spec.hs
---   build-depends:    base
---                   , hspec
---                   , robot
---   ghc-options:      -Wall
---                     -threaded
+test-suite test
+  default-language: Haskell2010
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test
+  main-is:          Test.hs
+  build-depends:    base
+                  , QuickCheck
+                  , robot
+  ghc-options:      -Wall
+                    -threaded
 

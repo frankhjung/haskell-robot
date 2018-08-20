@@ -1,62 +1,62 @@
 {-# LANGUAGE OverloadedLabels #-}
 
-module Robot (
-                robot
-              , fight
-              , printRobot
-             ) where
+{-|
+  Module      : Robot
+  Description : Test fighting robots.
+  Copyright   : © Frank Jung, 2018
+  License     : GPL-3
+  Maintainer  : frankhjung@linux.com
+  Stability   : stable
+  Portability : portable
+-}
 
-robot :: (a, b, c) -> ((a, b, c) -> t) -> t
-robot (name, attack, hp) message = message (name, attack, hp)
+-- TODO attack and health must be non-negative integers
+-- use smart types to validate attack and health
+module Robot
+        (
+          -- * Data Types
+          Robot (..)
+        , HitPoint
+          -- * Constants
+        , dead
+        , weak
+          -- * Functions
+        , damage
+        , fight
+        ) where
 
-name :: (a, b, c) -> a
-name (n, _, _) = n
+-- | A robot has name, attack strength and health.
+data Robot =
+  Robot {
+          name   :: String
+        , attack :: HitPoint
+        , health :: HitPoint
+        } deriving (Show)
 
-attack :: (a, b, c) -> b
-attack (_, a, _) = a
+type HitPoint = Int
 
-hp :: (a, b, c) -> c
-hp (_, _, h) = h
+-- | Health value when dead.
+dead :: HitPoint
+dead = 0
 
-getName :: (((a, b, c) -> a) -> t) -> t
-getName aRobot = aRobot name
+-- | Health value when weak.
+weak :: HitPoint
+weak = 5
 
-getAttack :: (((a, b, c) -> b) -> t) -> t
-getAttack aRobot = aRobot attack
-
-getHP :: (((a, b, c) -> c) -> t) -> t
-getHP aRobot = aRobot hp
-
-setName :: (((a1, b, c) -> ((a2, b, c) -> t1) -> t1) -> t2)
-                 -> a2 -> t2
-setName aRobot newName =
-    aRobot (\(_, a, h) -> robot (newName, a, h))
-
-setAttack :: (((a, b1, c) -> ((a, b2, c) -> t1) -> t1) -> t2)
-                   -> b2 -> t2
-setAttack aRobot newAttack =
-    aRobot (\(n, _, h) -> robot (n, newAttack, h))
-
-setHP :: (((a, b, c1) -> ((a, b, c2) -> t1) -> t1) -> t2)
-               -> c2 -> t2
-setHP aRobot newHP =
-    aRobot (\(n, a, _) -> robot (n, a, newHP))
-
-damage :: Num c =>
-                (((a, b, c) -> ((a, b, c) -> t1) -> t1) -> t2) -> c -> t2
-damage aRobot attackDamage =
-    aRobot (\(n,a,h) -> robot (n,a,h-attackDamage))
-
-fight :: (Ord c1, Num c1) =>
-               (((a1, c2, c2) -> c2) -> c1)
-               -> (((a2, b, c1) -> ((a2, b, c1) -> t1) -> t1) -> t2) -> t2
-fight aRobot defender = damage defender attack
-  where attack =
-          if getHP aRobot > 5
-            then getAttack aRobot
+-- | Reduce a robots health by damage points.
+damage :: Robot -> HitPoint -> Robot
+damage robot attackDamage =
+  Robot { name = name robot , attack = attack robot , health = damaged }
+  where damaged =
+          if health robot - attackDamage > dead
+            then health robot - attackDamage
             else 0
 
-printRobot :: (Show a2, Show a1) =>
-                    (((String, a1, a2) -> String) -> t) -> t
-printRobot aRobot =
-  aRobot (\(n, a, h) -> n ++ " attack:" ++ show a ++ " hp:"++ show h)
+-- | Issue damage from attacking robot to a defending robot.
+fight :: Robot -> Robot -> Robot
+fight attackingRobot defendingRobot = damage defendingRobot attackPoints
+  where attackPoints =
+          if health attackingRobot > weak
+            then attack attackingRobot
+            else 0
+
