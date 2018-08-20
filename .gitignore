@@ -1,0 +1,9 @@
+dist
+.dyn_hi
+*.dyn_o
+*.hi
+*.o
+scrapbook
+.stack-work/
+.*.swp
+tags

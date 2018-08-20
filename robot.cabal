@@ -1,0 +1,46 @@
+name:                robot
+version:             0.1.0
+synopsis:            code robot
+description:         Robot fight code snippets.
+homepage:            https://github.com/frankhjung/robot#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Frank H Jung
+maintainer:          frankhjung@linux.com
+copyright:           Copyright © 2018 Frank H Jung
+category:            education
+build-type:          Simple
+cabal-version:       >=1.10
+extra-source-files:  README.md
+
+source-repository head
+  type:             git
+  location:         git@github.com:frankhjung/haskell-robot.git
+
+executable robot
+  hs-source-dirs:   app
+  main-is:          Main.hs
+  default-language: Haskell2010
+  ghc-options:      -Wall
+                    -threaded
+  build-depends:    base >= 4.7 && <= 5.0
+                  , robot
+
+library
+  default-language: Haskell2010
+  hs-source-dirs:   src
+  exposed-modules:  Robot
+  ghc-options:      -Wall
+  build-depends:    base >= 4.7 && <= 5.0
+
+-- test-suite test
+--   default-language: Haskell2010
+--   type:             exitcode-stdio-1.0
+--   hs-source-dirs:   test
+--   main-is:          Spec.hs
+--   build-depends:    base
+--                   , hspec
+--                   , robot
+--   ghc-options:      -Wall
+--                     -threaded
+

@@ -1,0 +1,9 @@
+# get list of resolvers from https://www.stackage.org/
+resolver: lts-11.17
+
+packages:
+- .
+
+extra-deps: 
+
+allow-newer: true
