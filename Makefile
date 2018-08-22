@@ -33,6 +33,11 @@ bench:	build
 docs:	build
 	@stack haddock
 
+setup:
+	@stack setup
+	@stack query
+	@stack ls dependencies
+
 install:
 	@stack install --local-bin-path $(HOME)/bin $(TARGET)
 
