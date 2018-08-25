@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedLabels #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE OverloadedLabels           #-}
 
 {-|
   Module      : Robot
@@ -17,6 +18,8 @@ module Robot
           -- * Data Types
           Robot (..)
         , HitPoint
+          -- * Constructors
+        , makeHitPoint
           -- * Constants
         , dead
         , weak
@@ -33,15 +36,18 @@ data Robot =
         , health :: HitPoint
         } deriving (Show)
 
-type HitPoint = Int
+newtype HitPoint = HitPoint Int deriving (Eq, Num, Ord, Show)
+
+makeHitPoint :: Int -> HitPoint
+makeHitPoint hp = HitPoint (abs hp)
 
 -- | Health value when dead.
 dead :: HitPoint
-dead = 0
+dead = HitPoint 0
 
 -- | Health value when weak.
 weak :: HitPoint
-weak = 5
+weak = HitPoint 5
 
 -- | Reduce a robots health by damage points.
 damage :: Robot -> HitPoint -> Robot
@@ -50,7 +56,7 @@ damage robot attackDamage =
   where damaged =
           if health robot - attackDamage > dead
             then health robot - attackDamage
-            else 0
+            else HitPoint 0
 
 -- | Issue damage from attacking robot to a defending robot.
 fight :: Robot -> Robot -> Robot
@@ -58,5 +64,5 @@ fight attackingRobot defendingRobot = damage defendingRobot attackPoints
   where attackPoints =
           if health attackingRobot > weak
             then attack attackingRobot
-            else 0
+            else HitPoint 0
 
