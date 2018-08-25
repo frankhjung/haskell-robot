@@ -24,5 +24,6 @@ main :: IO ()
 main = do
 
   r <- generate $ Robot <$> arbitrary <*> genHitPoint <*> genHitPoint
-  quickCheck $ forAll genHitPoint $ \d -> prop_damage r d
-
+  quickCheck (forAll genHitPoint (prop_damage r))
+  -- pointful version:
+  -- quickCheck $ forAll genHitPoint $ \d -> prop_damage r d

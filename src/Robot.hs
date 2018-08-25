@@ -39,7 +39,9 @@ data Robot =
 newtype HitPoint = HitPoint Int deriving (Eq, Num, Ord, Show)
 
 makeHitPoint :: Int -> HitPoint
-makeHitPoint hp = HitPoint (abs hp)
+makeHitPoint = HitPoint . abs
+-- pointful version:
+-- makeHitPoint hp = HitPoint (abs hp)
 
 -- | Health value when dead.
 dead :: HitPoint
