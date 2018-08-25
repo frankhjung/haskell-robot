@@ -27,31 +27,28 @@ import           Robot (Robot (..), fight)
 main :: IO ()
 main = do
 
-  print "round 0"
-  let
-    fastRobot = Robot "fast"  7 40
-    slowRobot = Robot "slow" 15 30
-  print fastRobot
-  print slowRobot
-
-  print "round 1"
-  let
-    slowRobotRound1 = fight fastRobot slowRobot
-    fastRobotRound1 = fight slowRobot fastRobot
-  print fastRobotRound1
-  print slowRobotRound1
-
-  print "round 2"
-  let
-    slowRobotRound2 = fight fastRobotRound1 slowRobotRound1
-    fastRobotRound2 = fight slowRobotRound1 fastRobotRound1
-  print fastRobotRound2
-  print slowRobotRound2
-
-  print "round 3"
+  -- crazy - but true
+  -- this works fine as is Haskell lazy ...
   let
     slowRobotRound3 = fight fastRobotRound2 slowRobotRound2
     fastRobotRound3 = fight slowRobotRound2 fastRobotRound2
+    slowRobotRound2 = fight fastRobotRound1 slowRobotRound1
+    fastRobotRound2 = fight slowRobotRound1 fastRobotRound1
+    slowRobotRound1 = fight fastRobot slowRobot
+    fastRobotRound1 = fight slowRobot fastRobot
+    fastRobot = Robot "fast"  7 40
+    slowRobot = Robot "slow" 15 30
+
+  print "round 0"
+  print fastRobot
+  print slowRobot
+  print "round 1"
+  print fastRobotRound1
+  print slowRobotRound1
+  print "round 2"
+  print fastRobotRound2
+  print slowRobotRound2
+  print "round 3"
   print fastRobotRound3
   print slowRobotRound3
 
