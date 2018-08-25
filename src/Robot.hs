@@ -11,8 +11,6 @@
   Portability : portable
 -}
 
--- TODO attack and health must be non-negative integers
--- use smart types to validate attack and health
 module Robot
         (
           -- * Data Types

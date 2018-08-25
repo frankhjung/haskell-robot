@@ -42,5 +42,6 @@ test-suite test
                   , QuickCheck
                   , robot
   ghc-options:      -Wall
+                    -Wno-orphans
                     -threaded
 

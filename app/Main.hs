@@ -30,14 +30,14 @@ main = do
   -- crazy - but true
   -- this works fine as is Haskell lazy ...
   let
-    slowRobotRound3 = fight fastRobotRound2 slowRobotRound2
-    fastRobotRound3 = fight slowRobotRound2 fastRobotRound2
-    slowRobotRound2 = fight fastRobotRound1 slowRobotRound1
-    fastRobotRound2 = fight slowRobotRound1 fastRobotRound1
-    slowRobotRound1 = fight fastRobot slowRobot
-    fastRobotRound1 = fight slowRobot fastRobot
     fastRobot = Robot "fast"  7 40
+    fastRobotRound1 = fight slowRobot fastRobot
+    fastRobotRound2 = fight slowRobotRound1 fastRobotRound1
+    fastRobotRound3 = fight slowRobotRound2 fastRobotRound2
     slowRobot = Robot "slow" 15 30
+    slowRobotRound1 = fight fastRobot slowRobot
+    slowRobotRound2 = fight fastRobotRound1 slowRobotRound1
+    slowRobotRound3 = fight fastRobotRound2 slowRobotRound2
 
   print "round 0"
   print fastRobot

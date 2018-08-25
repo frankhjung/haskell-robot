@@ -1,20 +1,19 @@
-
 module Main (main) where
 
 import           Robot           (HitPoint, Robot (..), damage, makeHitPoint)
 import           Test.QuickCheck
 
--- instance Arbitrary HitPoint where
---     arbitrary = makeHitPoint `fmap` arbitrary :: Gen Int
+instance Arbitrary HitPoint
+    where arbitrary = fmap makeHitPoint arbitrary
 
 -- genPositive :: Gen Int
 -- genPositive = abs `fmap` (arbitrary :: Gen Int) `suchThat` (>= 0)
 
-genHitPoint :: Gen HitPoint
-genHitPoint = fmap makeHitPoint (arbitrary :: Gen Int)
+-- genHitPoint :: Gen HitPoint
+-- genHitPoint = fmap makeHitPoint (arbitrary :: Gen Int)
 
-prop_damage :: Robot -> HitPoint -> Bool
-prop_damage r d = health (damage r d) == newhealth
+propDamage :: Robot -> HitPoint -> Bool
+propDamage r d = health (damage r d) == newhealth
     where newhealth =
             if health r - d > 0
               then health r - d
@@ -23,7 +22,7 @@ prop_damage r d = health (damage r d) == newhealth
 main :: IO ()
 main = do
 
-  r <- generate $ Robot <$> arbitrary <*> genHitPoint <*> genHitPoint
-  quickCheck (forAll genHitPoint (prop_damage r))
+  r <- generate $ Robot <$> arbitrary <*> arbitrary <*> arbitrary
+  quickCheck (forAll arbitrary (propDamage r))
   -- pointful version:
-  -- quickCheck $ forAll genHitPoint $ \d -> prop_damage r d
+  -- quickCheck $ forAll genHitPoint $ \d -> propDamage r d
