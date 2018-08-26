@@ -6,14 +6,16 @@ import           Test.QuickCheck
 instance Arbitrary HitPoint
     where arbitrary = fmap makeHitPoint arbitrary
 
+-- if you didn't want to write an instance then can use these generators:
+--
 -- genPositive :: Gen Int
 -- genPositive = abs `fmap` (arbitrary :: Gen Int) `suchThat` (>= 0)
-
+--
 -- genHitPoint :: Gen HitPoint
 -- genHitPoint = fmap makeHitPoint (arbitrary :: Gen Int)
 
-propDamage :: Robot -> HitPoint -> Bool
-propDamage r d = health (damage r d) == newhealth
+prop_damage :: Robot -> HitPoint -> Bool
+prop_damage r d = health (damage r d) == newhealth
     where newhealth =
             if health r - d > 0
               then health r - d
@@ -23,6 +25,6 @@ main :: IO ()
 main = do
 
   r <- generate $ Robot <$> arbitrary <*> arbitrary <*> arbitrary
-  quickCheck (forAll arbitrary (propDamage r))
+  quickCheck (forAll arbitrary (prop_damage r))
   -- pointful version:
-  -- quickCheck $ forAll genHitPoint $ \d -> propDamage r d
+  -- quickCheck $ forAll genHitPoint $ \d -> prop_damage r d

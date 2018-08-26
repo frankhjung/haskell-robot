@@ -22,7 +22,7 @@ build:	$(SRCS)
 	@stack build
 
 exec:	build
-	@stack exec $(TARGET) -- $(ARGS)
+	@stack exec $(TARGET) -- +RTS -N2 -RTS $(ARGS)
 
 test:	build
 	@stack test

@@ -24,6 +24,7 @@ module Robot
           -- * Functions
         , damage
         , fight
+        , tournament
         ) where
 
 -- | A robot has name, attack strength and health.
@@ -58,11 +59,15 @@ damage robot attackDamage =
             then health robot - attackDamage
             else HitPoint 0
 
--- | Issue damage from attacking robot to a defending robot.
+-- | Issue damage from attacking robot to the defending robot.
 fight :: Robot -> Robot -> Robot
-fight attackingRobot defendingRobot = damage defendingRobot attackPoints
+fight attacker defender = damage defender attackPoints
   where attackPoints =
-          if health attackingRobot > weak
-            then attack attackingRobot
+          if health attacker > weak
+            then attack attacker
             else HitPoint 0
+
+-- | Run a robot fight tournament.
+tournament :: Int -> Robot -> Robot -> [Robot]
+tournament n attacker defender = take n $ iterate (fight attacker) defender
 

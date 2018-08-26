@@ -2,53 +2,22 @@
 
 module Main (main) where
 
-import           Robot (Robot (..), fight)
+import           Robot (Robot (..), tournament)
 
 --
--- MAIN robot fight demonstration. Results are:
+-- MAIN robot fight demonstration.
 --
--- round 0
--- Robot {name = "fast", attack = 7, health = 40}
--- Robot {name = "slow", attack = 15, health = 30}
---
--- round 1
--- Robot {name = "fast", attack = 7, health = 25}
--- Robot {name = "slow", attack = 15, health = 23}
---
--- round 2
--- Robot {name = "fast", attack = 7, health = 10}
--- Robot {name = "slow", attack = 15, health = 16}
---
--- round 3
--- Robot {name = "fast", attack = 7, health = 0}
--- Robot {name = "slow", attack = 15, health = 9}
---
---
+
 main :: IO ()
 main = do
 
-  -- crazy - but true
-  -- this works fine as is Haskell lazy ...
   let
     fastRobot = Robot "fast"  7 40
-    fastRobotRound1 = fight slowRobot fastRobot
-    fastRobotRound2 = fight slowRobotRound1 fastRobotRound1
-    fastRobotRound3 = fight slowRobotRound2 fastRobotRound2
     slowRobot = Robot "slow" 15 30
-    slowRobotRound1 = fight fastRobot slowRobot
-    slowRobotRound2 = fight fastRobotRound1 slowRobotRound1
-    slowRobotRound3 = fight fastRobotRound2 slowRobotRound2
 
-  print "round 0"
-  print fastRobot
-  print slowRobot
-  print "round 1"
-  print fastRobotRound1
-  print slowRobotRound1
-  print "round 2"
-  print fastRobotRound2
-  print slowRobotRound2
-  print "round 3"
-  print fastRobotRound3
-  print slowRobotRound3
+  putStrLn "Showing history of fast robot ..."
+  mapM_ print $ tournament 4 slowRobot fastRobot
+
+  putStrLn "Showing history of slow robot ..."
+  mapM_ print $ tournament 4 fastRobot slowRobot
 
