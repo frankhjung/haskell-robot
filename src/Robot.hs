@@ -35,8 +35,10 @@ data Robot =
         , health :: HitPoint
         } deriving (Show)
 
+-- | Hit point (unsigned Int).
 newtype HitPoint = HitPoint Int deriving (Eq, Num, Ord, Show)
 
+-- | Hit point constructor (unsigned Int).
 makeHitPoint :: Int -> HitPoint
 makeHitPoint = HitPoint . abs
 -- pointful version:

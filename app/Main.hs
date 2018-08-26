@@ -5,7 +5,7 @@ module Main (main) where
 import           Robot (Robot (..), tournament)
 
 --
--- MAIN robot fight demonstration.
+-- MAIN robot demonstration project
 --
 
 main :: IO ()
