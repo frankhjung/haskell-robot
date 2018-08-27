@@ -1,4 +1,6 @@
-image: fpco/stack-build:lts-11.17
+image:
+  name: haskell:8.2.2
+  entrypoint: [""]
 
 stages:
   - all
