@@ -4,7 +4,7 @@ import           Robot           (HitPoint, Robot (..), damage, makeHitPoint)
 import           Test.QuickCheck
 
 instance Arbitrary HitPoint
-    where arbitrary = fmap makeHitPoint arbitrary
+  where arbitrary = fmap makeHitPoint arbitrary
 
 -- if you didn't want to write an instance then can use these generators:
 --
@@ -16,10 +16,10 @@ instance Arbitrary HitPoint
 
 prop_damage :: Robot -> HitPoint -> Bool
 prop_damage r d = health (damage r d) == newhealth
-    where newhealth =
-            if health r - d > 0
-              then health r - d
-              else 0
+  where newhealth =
+          if health r - d > 0
+            then health r - d
+            else 0
 
 main :: IO ()
 main = do

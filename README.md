@@ -9,7 +9,8 @@ Kurt, Published by Manning Publications, 2018.
 
 (This was the old solution code before refactoring.)
 
-As Haskell lazy these robots can appear in *any* order: (old code)
+As Haskell is lazy, robots can appear in *any* order. When a value is required
+(`print`), only then, is it evaluated.
 
 ```haskell
 let
@@ -65,3 +66,4 @@ Robot {name = "slow", attack = 15, health = 9}
 * [Haskell Docker Images](https://hub.docker.com/_/haskell/)
 * [QuickCheck](https://begriffs.com/posts/2017-01-14-design-use-quickcheck.html)
 * [Smart Constructors](https://wiki.haskell.org/Smart_constructors)
+

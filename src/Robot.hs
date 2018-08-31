@@ -59,7 +59,7 @@ damage robot attackDamage =
   where damaged =
           if health robot - attackDamage > dead
             then health robot - attackDamage
-            else HitPoint 0
+            else dead
 
 -- | Issue damage from attacking robot to the defending robot.
 fight :: Robot -> Robot -> Robot
@@ -67,7 +67,7 @@ fight attacker defender = damage defender attackPoints
   where attackPoints =
           if health attacker > weak
             then attack attacker
-            else HitPoint 0
+            else dead
 
 -- | Run a robot fight tournament.
 tournament :: Int -> Robot -> Robot -> [Robot]

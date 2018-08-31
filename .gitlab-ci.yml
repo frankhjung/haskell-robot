@@ -2,6 +2,9 @@ image:
   name: haskell:8.2.2
   entrypoint: [""]
 
+before_script:
+  - apt-get update -qq && apt-get install -y -qq hasktags hlint stylish-haskell
+
 stages:
   - all
 
@@ -17,7 +20,12 @@ cache:
 all:
   stage: all
   script:
-    - make setup
-    - make build
+    - make clean setup
+    - make check build
     - make test
+    - make doc
     - make exec
+  artifacts:
+    paths:
+      - .stack-work/dist
+      - .stack-work/install
