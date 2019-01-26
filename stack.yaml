@@ -1,9 +1,11 @@
-# get list of resolvers from https://www.stackage.org/
-resolver: lts-11.17
-
-packages:
-- .
-
-extra-deps: 
-
+# https://www.stackage.org/ ghc 8.4.4 => lts 12.26
+# https://www.stackage.org/lts-12.26/
+resolver: lts-12.26
+flags: {}
 allow-newer: true
+packages:
+  - .
+extra-deps:
+arch: x86_64
+system-ghc: true
+

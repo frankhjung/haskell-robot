@@ -36,7 +36,7 @@ exec:
 	@stack exec $(TARGET) -- $(ARGS) +RTS -s
 
 install:
-	@stack install --local-bin-path $(HOME)/bin $(TARGET)
+	@stack install --local-bin-path $(HOME)/bin
 
 setup:
 	-stack setup
@@ -53,7 +53,7 @@ clean:
 	@$(RM) -rf dist
 
 cleanall: clean
-	@$(RM) -rf .stack-work/ $(TARGET)
+	@$(RM) -rf .stack-work/
 
 ghci:
 	@stack ghci --ghci-options -Wno-type-defaults
