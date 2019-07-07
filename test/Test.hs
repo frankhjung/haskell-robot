@@ -8,8 +8,8 @@ instance Arbitrary HitPoint
 
 -- if you didn't want to write an instance then can use these generators:
 --
--- genPositive :: Gen Int
--- genPositive = abs `fmap` (arbitrary :: Gen Int) `suchThat` (>= 0)
+-- genNonNegative :: Gen Int
+-- genNonNegative = abs `fmap` (arbitrary :: Gen Int) `suchThat` (>= 0)
 --
 -- genHitPoint :: Gen HitPoint
 -- genHitPoint = fmap makeHitPoint (arbitrary :: Gen Int)

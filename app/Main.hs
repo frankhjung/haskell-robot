@@ -4,9 +4,9 @@ module Main (main) where
 
 import           Robot (Robot (..), tournament)
 
---
--- MAIN robot demonstration project
---
+{-|
+  MAIN robot demonstration project.
+-}
 
 main :: IO ()
 main = do
