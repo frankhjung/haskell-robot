@@ -36,16 +36,13 @@ exec:
 	@stack exec $(TARGET) -- $(ARGS) +RTS -s
 
 install:
-	@stack install --local-bin-path $(HOME)/bin
+	@stack install --local-bin-path $(HOME)/bin $(TARGET)
 
 setup:
 	-stack setup
 	-stack build --dependencies-only --test --no-run-tests
 	-stack query
 	-stack ls dependencies
-
-install:
-	@stack install --local-bin-path $(HOME)/bin $(TARGET)
 
 clean:
 	@cabal clean

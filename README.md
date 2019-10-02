@@ -9,8 +9,8 @@ Kurt, Published by Manning Publications, 2018.
 
 (This was the old solution code before refactoring.)
 
-As Haskell is lazy, robots can appear in *any* order. When a value is required
-(`print`), only then, is it evaluated.
+As Haskell is lazy, robots can appear in *any* order. Only when a value is
+required (`print`) is it evaluated.
 
 ```haskell
 let
