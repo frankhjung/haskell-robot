@@ -1,5 +1,5 @@
 name:                robot
-version:             0.7.0
+version:             0.7.1
 synopsis:            haskell example code
 description:         Robot fight code snippets.
 homepage:            https://github.com/frankhjung/robot#readme
@@ -23,7 +23,7 @@ executable robot
   default-language: Haskell2010
   ghc-options:      -Wall
                     -threaded
-  build-depends:    base >= 4.11.1 && < 4.12
+  build-depends:    base
                   , robot
 
 library
@@ -31,8 +31,8 @@ library
   hs-source-dirs:   src
   exposed-modules:  Robot
   ghc-options:      -Wall
-  build-depends:    base >= 4.11.1 && < 4.12
-                  , extra >= 1.6.9 && < 1.7
+  build-depends:    base
+                  , extra
 
 test-suite test
   default-language: Haskell2010
@@ -42,7 +42,7 @@ test-suite test
   ghc-options:      -Wall
                     -Wno-orphans
                     -threaded
-  build-depends:    base >= 4.11.1 && < 4.12
-                  , QuickCheck >= 2.11.3 && < 2.12
+  build-depends:    base
+                  , QuickCheck
                   , robot
 

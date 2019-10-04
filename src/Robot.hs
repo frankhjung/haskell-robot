@@ -69,7 +69,8 @@ fight attacker defender = damage defender attackPoints
             then attack attacker
             else dead
 
--- | Run a robot fight tournament.
+-- | Run a robot tournament.
+-- TODO replace with takeWhile both robots are still alive
 tournament :: Int -> Robot -> Robot -> [Robot]
 tournament n attacker defender = take n $ iterate (fight attacker) defender
 
