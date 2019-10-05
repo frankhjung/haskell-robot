@@ -5,9 +5,8 @@
 TARGET	:= robot
 SUBS	:= $(wildcard */)
 SRCS	:= $(wildcard $(addsuffix *.hs, $(SUBS)))
-ARGS	:= ''
 
-build:
+build:	check
 	@stack build
 
 all:	check build test doc exec
@@ -24,16 +23,17 @@ style:
 	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
 
 test:
-	@stack test --coverage
+	@stack test
 
 bench:
 	@stack bench --benchmark-arguments '-o .stack-work/benchmark.html'
 
 doc:
+	@stack test --coverage --no-run-tests
 	@stack haddock
 
 exec:
-	@stack exec $(TARGET) -- $(ARGS) +RTS -s
+	@stack exec $(TARGET) -- +RTS -s
 
 install:
 	@stack install --local-bin-path $(HOME)/bin $(TARGET)

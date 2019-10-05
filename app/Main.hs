@@ -15,9 +15,9 @@ main = do
     fastRobot = Robot "fast"  7 40
     slowRobot = Robot "slow" 15 30
 
-  putStrLn "Showing history of fast robot ..."
-  mapM_ print $ tournament 4 slowRobot fastRobot
+  putStrLn "How long the fast robot survives ..."
+  mapM_ print $ tournament slowRobot fastRobot
 
-  putStrLn "Showing history of slow robot ..."
-  mapM_ print $ tournament 4 fastRobot slowRobot
+  putStrLn "How long the slow robot survives ..."
+  mapM_ print $ tournament fastRobot slowRobot
 

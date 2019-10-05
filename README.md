@@ -54,7 +54,7 @@ round 2
 Robot {name = "fast", attack = 7, health = 10}
 Robot {name = "slow", attack = 15, health = 16}
 
-round 3
+round 3                                         # Slow robot wins!
 Robot {name = "fast", attack = 7, health = 0}
 Robot {name = "slow", attack = 15, health = 9}
 ```
