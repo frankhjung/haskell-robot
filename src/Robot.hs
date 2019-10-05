@@ -22,7 +22,6 @@ module Robot
         , dead
         , weak
           -- * Functions
-        , isAlive
         , damage
         , fight
         , tournament
@@ -42,12 +41,6 @@ newtype HitPoint = HitPoint Int deriving (Eq, Num, Ord, Show)
 -- | Hit point constructor (unsigned Int).
 makeHitPoint :: Int -> HitPoint
 makeHitPoint = HitPoint . abs
--- pointful version:
--- makeHitPoint hp = HitPoint (abs hp)
-
--- | Is Robot still alive?
-isAlive :: Robot -> Bool
-isAlive r = health r > dead
 
 -- | Health value when dead.
 dead :: HitPoint
@@ -77,8 +70,6 @@ fight attacker defender = damage defender attackPoints
 -- | Run a robot tournament until death.
 tournament :: Robot -> Robot -> [Robot]
 tournament attacker defender = takeWhile isAlive $ iterate (fight attacker) defender
-
--- | Run a robot tournament for a set number of rounds.
--- tournament :: Int -> Robot -> Robot -> [Robot]
--- tournament n attacker defender = take n $ iterate (fight attacker) defender
-
+  where
+    isAlive :: Robot -> Bool
+    isAlive robot = health robot > dead
