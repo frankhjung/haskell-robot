@@ -5,6 +5,7 @@ object-oriented programming with robots of [Get Programming in
 Haskell](https://www.manning.com/books/get-programming-with-haskell), by Will
 Kurt, Published by Manning Publications, 2018.
 
+
 ## Execution can be done in random order
 
 (This was the old solution code before refactoring.)
@@ -58,6 +59,13 @@ round 3                                         # Slow robot wins!
 Robot {name = "fast", attack = 7, health = 0}
 Robot {name = "slow", attack = 15, health = 9}
 ```
+
+
+## API Documentation
+
+* [GitHub](https://frankhjung.github.io/haskell-robot/)
+* [GitLab](https://frankhjung1.gitlab.io/haskell-robot/)
+
 
 ## References
 
