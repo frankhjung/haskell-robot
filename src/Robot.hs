@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedLabels #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE OverloadedLabels           #-}
 
 {-|
   Module      : Robot
@@ -14,7 +15,7 @@ module Robot
         (
           -- * Data Types
           Robot (..)
-        , HitPoint
+        , HitPoint (..)
           -- * Constants
         , dead
         , weak
@@ -33,36 +34,35 @@ data Robot =
         } deriving (Show)
 
 -- | Hit points are non-negative integers (i.e. Natural numbers).
-type HitPoint = Word
+newtype HitPoint = HitPoint Word deriving (Eq, Num, Ord, Show)
 
 -- | Hit Point value of health when dead.
 dead :: HitPoint
-dead = 0 :: HitPoint
+dead = HitPoint 0
 
 -- | Hit Point value of health when weak.
 weak :: HitPoint
-weak = 5 :: HitPoint
+weak = HitPoint 5
 
 -- | Reduce a robots health by damage points.
 damage :: Robot -> HitPoint -> Robot
 damage robot attackDamage =
   Robot { name = name robot, attack = attack robot, health = damaged }
-  where damaged =
-          if health robot > attackDamage
-            then health robot - attackDamage
-            else dead
+  where
+    damaged
+      | health robot > attackDamage = health robot - attackDamage
+      | otherwise                   = dead
 
 -- | Issue damage from attacking robot to the defending robot.
 fight :: Robot -> Robot -> Robot
 fight attacker defender = damage defender attackPoints
-  where attackPoints =
-          if health attacker > weak
-            then attack attacker
-            else dead
+  where
+    attackPoints
+      | health attacker > weak = attack attacker
+      | otherwise              = dead
 
 -- | Run a tournament until attacking robot is dead.
 tournament :: Robot -> Robot -> [Robot]
 tournament attacker defender = takeWhile isAlive $ iterate (fight attacker) defender
   where
-    isAlive :: Robot -> Bool
     isAlive robot = health robot > dead

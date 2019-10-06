@@ -6,8 +6,8 @@ TARGET	:= robot
 SUBS	:= $(wildcard */)
 SRCS	:= $(wildcard $(addsuffix *.hs, $(SUBS)))
 
-build:	check
-	@stack build
+.PHONY: default
+default:	check build test
 
 all:	check build test doc exec
 
@@ -16,11 +16,14 @@ check:	tags style lint
 tags:
 	@hasktags --ctags --extendedctag $(SRCS)
 
+style:
+	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
+
 lint:
 	@hlint $(SRCS)
 
-style:
-	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
+build:
+	@stack build
 
 test:
 	@stack test
