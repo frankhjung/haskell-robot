@@ -1,33 +1,21 @@
 module Main (main) where
 
-import           Robot           (HitPoint, Robot (..), damage, dead,
-                                  makeHitPoint)
+import           Robot           (HitPoint, Robot (..), damage, dead)
 import           Test.QuickCheck
 
-instance Arbitrary HitPoint
-  where arbitrary = fmap makeHitPoint arbitrary
-
+-- | Arbitrary Robot constructor.
 instance Arbitrary Robot
   where arbitrary = Robot <$> arbitrary <*> arbitrary <*> arbitrary
 
--- if you didn't want to write an instance then can use these generators:
---
--- genNonNegative :: Gen Int
--- genNonNegative = abs `fmap` (arbitrary :: Gen Int) `suchThat` (>= 0)
---
--- genHitPoint :: Gen HitPoint
--- genHitPoint = fmap makeHitPoint (arbitrary :: Gen Int)
---
--- then test with:
--- quickCheck $ forAll genHitPoint $ \d -> prop_damage r d
-
+-- | Test property damage. Either robot weakened or killed.
 prop_damaged :: Robot -> HitPoint -> Bool
 prop_damaged r d = health (damage r d) == newhealth
   where newhealth =
-          if health r - d > dead
+          if health r > d
             then health r - d
             else dead
 
+-- | Test property damage that will kill a robot.
 prop_dead :: Robot -> Bool
 prop_dead robot = health deadrobot == dead
   where deadrobot = damage robot (health robot)
