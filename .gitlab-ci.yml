@@ -1,3 +1,5 @@
+---
+
 stages:
   - build
   - deploy
@@ -11,7 +13,7 @@ build:
   except:
     - tags
   image:
-    name: frankhjung/haskell:8.6.5
+    name: frankhjung/haskell:8.8.4
     entrypoint: [""]
   stage: build
   script:
@@ -40,4 +42,4 @@ pages:
     - build
   artifacts:
     paths:
-    - public
+      - public

@@ -1,15 +1,17 @@
+{-# OPTIONS_GHC -Wno-orphans #-}
 module Main (main) where
 
+import           Control.Monad   (liftM3)
 import           Robot           (HitPoint (..), Robot (..), damage, dead)
 import           Test.QuickCheck
 
 -- | Arbitrary Robot.
 instance Arbitrary Robot where
-  arbitrary = Robot <$> arbitrary <*> arbitrary <*> arbitrary
+  arbitrary = liftM3 Robot arbitrary arbitrary arbitrary
 
 -- | Arbitrary HitPoint.
 instance Arbitrary HitPoint where
-  arbitrary = HitPoint <$> arbitrary
+  arbitrary = fmap HitPoint arbitrary
 
 -- | Test property damage. Either robot weakened or killed.
 prop_damaged :: Robot -> HitPoint -> Bool

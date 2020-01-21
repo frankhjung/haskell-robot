@@ -1,10 +1,9 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE OverloadedLabels           #-}
 
 {-|
   Module      : Robot
   Description : Test fighting robots.
-  Copyright   : © Frank Jung, 2018-2019
+  Copyright   : © Frank Jung, 2018-2021
   License     : GPL-3
   Maintainer  : frankhjung@linux.com
   Stability   : stable

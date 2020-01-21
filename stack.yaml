@@ -1,7 +1,11 @@
-arch: x86_64
-system-ghc: true
-resolver: lts-13.25
-allow-newer: false
+---
+
+# https://www.stackage.org/ ghc 8.6.5 => lts 14.27
+resolver: lts-14.27
 flags: {}
-packages: ['.']
-extra-deps: []
+allow-newer: true
+packages:
+  - .
+extra-deps:
+arch: x86_64
+system-ghc: false

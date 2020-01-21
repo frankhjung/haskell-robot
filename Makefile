@@ -20,40 +20,36 @@ style:
 	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
 
 lint:
-	@hlint $(SRCS)
+	@hlint --color $(SRCS)
 
 build:
 	@stack build
 
 test:
-	@stack test
-
-bench:
-	@stack bench --benchmark-arguments '-o .stack-work/benchmark.html'
+	@stack test --coverage
 
 doc:
-	@stack test --coverage --no-run-tests
 	@stack haddock
 
 exec:
 	@stack exec $(TARGET) -- +RTS -s
 
 install:
-	@stack install --local-bin-path $(HOME)/bin $(TARGET)
+	@stack install --local-bin-path $(HOME)/bin
 
 setup:
 	-stack setup
-	-stack build --dependencies-only --test --no-run-tests
+	-stack build --dependencies-only
 	-stack query
 	-stack ls dependencies
+
+ghci:
+	@stack ghci --ghci-options -Wno-type-defaults
 
 clean:
 	@cabal clean
 	@stack clean
-	@$(RM) -rf dist
+	@$(RM) -rf $(TARGET).tix
 
 cleanall: clean
-	@$(RM) -rf .stack-work/
-
-ghci:
-	@stack ghci --ghci-options -Wno-type-defaults
+	@stack purge
