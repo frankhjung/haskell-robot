@@ -1,10 +1,11 @@
-dist
+.*.swp
 .dyn_hi
+.stack-work/
 *.dyn_o
 *.hi
 *.o
-scrapbook
-.stack-work/
-.*.swp
-tags
 *.tix
+dist
+scrapbook
+stack.yaml.lock
+tags
