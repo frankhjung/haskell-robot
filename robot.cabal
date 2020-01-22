@@ -1,17 +1,17 @@
-name:                robot
-version:             0.8.1
-synopsis:            haskell example code
-description:         Robot fight code snippets.
-homepage:            https://github.com/frankhjung/robot#readme
-license:             BSD3
-license-file:        LICENSE
-author:              Frank H Jung
-maintainer:          frankhjung@linux.com
-copyright:           Copyright © 2018-2019 Frank H Jung
-category:            education
-build-type:          Simple
-cabal-version:       >=1.10
-extra-source-files:  README.md
+name:               robot
+version:            0.9.0
+synopsis:           haskell example code
+description:        Robot fight code snippets.
+homepage:           https://github.com/frankhjung/robot#readme
+license:            BSD3
+license-file:       LICENSE
+author:             Frank H Jung
+maintainer:         frankhjung@linux.com
+copyright:          Copyright © 2018-2019 Frank H Jung
+category:           education
+build-type:         Simple
+cabal-version:      >=1.10
+extra-source-files: README.md
 
 source-repository head
   type:             git
