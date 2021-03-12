@@ -5,12 +5,16 @@ object-oriented programming with robots of [Get Programming in
 Haskell](https://www.manning.com/books/get-programming-with-haskell), by Will
 Kurt, Published by Manning Publications, 2018.
 
+## API Documentation
+
+- [GitHub](https://frankhjung.github.io/haskell-robot/)
+- [GitLab](https://frankhjung1.gitlab.io/haskell-robot/)
 
 ## Execution can be done in random order
 
 (This was the old solution code before refactoring.)
 
-As Haskell is lazy, robots can appear in *any* order. Only when a value is
+As Haskell is lazy, robots can appear in *any- order. Only when a value is
 required (`print`) is it evaluated.
 
 ```haskell
@@ -104,18 +108,10 @@ gen[0].sync: 0
 gen[1].sync: 0
 ```
 
-
-## API Documentation
-
-* [GitHub](https://frankhjung.github.io/haskell-robot/)
-* [GitLab](https://frankhjung1.gitlab.io/haskell-robot/)
-
-
 ## References
 
-* [GitLab CI for Haskell](https://vadosware.io/post/zero-to-continuous-integrated-testing-a-haskell-project-with-gitlab)
-* [GitLab Docker Image for lts-11.17](https://hub.docker.com/r/fpco/stack-build/tags/)
-* [Haskell Docker Images](https://hub.docker.com/_/haskell/)
-* [QuickCheck](https://begriffs.com/posts/2017-01-14-design-use-quickcheck.html)
-* [Smart Constructors](https://wiki.haskell.org/Smart_constructors)
-
+- [GitLab CI for Haskell](https://vadosware.io/post/zero-to-continuous-integrated-testing-a-haskell-project-with-gitlab)
+- [GitLab Docker Image for lts-11.17](https://hub.docker.com/r/fpco/stack-build/tags/)
+- [Haskell Docker Images](https://hub.docker.com/_/haskell/)
+- [QuickCheck](https://begriffs.com/posts/2017-01-14-design-use-quickcheck.html)
+- [Smart Constructors](https://wiki.haskell.org/Smart_constructors)

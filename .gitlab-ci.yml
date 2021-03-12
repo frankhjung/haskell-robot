@@ -7,7 +7,7 @@ stages:
 variables:
   TARGET: robot
   RTSOPTS: "+RTS -N1"
-  STACK_ROOT: "${CI_PROJECT_DIR}/.stack"
+  STACK_ROOT: ${CI_PROJECT_DIR}/.stack
 
 build:
   except:
@@ -17,14 +17,13 @@ build:
     entrypoint: [""]
   stage: build
   script:
-    - make setup clean all
-    - mkdir -p public
-    - cp -pr .stack-work/install/x86_64-linux/*/*/doc/* public/
+    - make setup clean check build test doc exec
+    - mv $(stack path --local-doc-root)/robot*/ public/
   artifacts:
     paths:
       - public
   cache:
-    key: ${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}
+    key: ${CI_COMMIT_REF_NAME}
     paths:
       - .stack
       - .stack-work
