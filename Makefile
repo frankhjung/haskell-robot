@@ -26,7 +26,7 @@ build:
 	@stack build
 
 test:
-	@stack test --coverage
+	@stack test
 
 doc:
 	@stack haddock

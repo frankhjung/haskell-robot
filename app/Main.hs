@@ -20,4 +20,3 @@ main = do
 
   putStrLn "How long the slow robot survives ..."
   mapM_ print $ tournament fastRobot slowRobot
-

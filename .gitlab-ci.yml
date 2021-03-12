@@ -19,8 +19,7 @@ build:
   script:
     - make setup clean all
     - mkdir -p public
-    - cp -pr .stack-work/install/x86_64-linux/lts-*/*/hpc/* public/
-    - cp -pr .stack-work/dist/x86_64-linux/Cabal-*/doc/html/${TARGET}/* public/
+    - cp -pr .stack-work/install/x86_64-linux/*/*/doc/* public/
   artifacts:
     paths:
       - public

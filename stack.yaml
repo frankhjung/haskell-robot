@@ -1,11 +1,10 @@
 ---
 
-# https://www.stackage.org/ ghc 8.6.5 => lts 14.27
-resolver: lts-14.27
+# https://www.stackage.org/ ghc 8.8.4 => lts 16.31
+resolver: lts-16.31
 flags: {}
 allow-newer: true
 packages:
-  - .
 extra-deps:
 arch: x86_64
-system-ghc: false
+system-ghc: true
