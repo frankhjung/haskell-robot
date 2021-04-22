@@ -32,7 +32,6 @@ library
   exposed-modules:  Robot
   ghc-options:      -Wall
   build-depends:    base
-                  , extra
 
 test-suite test
   default-language: Haskell2010
