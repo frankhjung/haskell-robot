@@ -5,37 +5,36 @@ stages:
   - deploy
 
 variables:
-  TARGET: robot
+  PROJECT: robot
   RTSOPTS: "+RTS -N1"
   STACK_ROOT: ${CI_PROJECT_DIR}/.stack
 
 build:
+  stage: build
   except:
     - tags
-  image:
-    name: frankhjung/haskell:8.8.4
-    entrypoint: [""]
-  stage: build
+  image: frankhjung/haskell:9.0.2
+  variables:
+    STACK_ROOT: ${CI_PROJECT_DIR}/.stack
   script:
-    - make setup clean check build test doc exec
-    - mv $(stack path --local-doc-root)/robot*/ public/
+    - make clean check build test doc exec
+    - mv dist-newstyle/build/x86_64-linux/ghc-9.0.2/${PROJECT}-*/doc/html/${PROJECT}/ public/
   artifacts:
     paths:
       - public
   cache:
-    key: ${CI_COMMIT_REF_NAME}
+    key: ${CI_COMMIT_REF_SLUG}
     paths:
-      - .stack
-      - .stack-work
+      - .stack/
+      - .stack-work/
 
 pages:
-  only:
-    refs:
-      - master
-  image: alpine:latest
   stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  image: alpine:latest
   script:
-    - echo Publishing pages ...
+    - echo Publishing documentation ...
   dependencies:
     - build
   artifacts:

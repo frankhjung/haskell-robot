@@ -29,7 +29,7 @@ test:
 	@stack test
 
 doc:
-	@stack haddock
+	@cabal haddock
 
 exec:
 	@stack exec $(TARGET) -- +RTS -s
@@ -39,7 +39,7 @@ install:
 
 setup:
 	-stack setup
-	-stack build --dependencies-only
+	-stack build --dependencies-only --test --no-run-tests
 	-stack query
 	-stack ls dependencies
 
