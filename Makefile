@@ -1,55 +1,65 @@
 #!/usr/bin/env make
 
-.PHONY:	all bench build check clean cleanall doc exec ghci install lint setup style tags test
-
-TARGET	:= robot
 SUBS	:= $(wildcard */)
 SRCS	:= $(wildcard $(addsuffix *.hs, $(SUBS)))
+YAML	:= $(shell git ls-files | grep --perl \.y?ml)
 
 .PHONY: default
-default:	check build test
+default: check build test
 
+.PHONY: all
 all:	check build test doc exec
 
+.PHONY: check
 check:	tags style lint
 
-tags:
+.PHONY: tags
+tags: $(SRC)
+	@echo tags ...
 	@hasktags --ctags --extendedctag $(SRCS)
 
+.PHONY: style
 style:
+	@echo style ...
 	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
 
+.PHONY: lint
 lint:
-	@hlint --color $(SRCS)
+	@echo lint ...
+	@cabal check
+	@hlint --cross --color --show $(SRCS)
+	@yamllint --strict $(YAML)
 
+.PHONY: build
 build:
-	@stack build
+	@echo build ...
+	@stack build --pedantic --fast
 
+.PHONY: test
 test:
-	@stack test
+	@echo test ...
+	@stack test --fast
 
+.PHONY: doc
 doc:
-	@cabal haddock
+	@echo doc ...
+	@stack haddock
 
+.PHONY: exec
 exec:
-	@stack exec $(TARGET) -- +RTS -s
+	@stack exec main -- +RTS -s
 
-install:
-	@stack install --local-bin-path $(HOME)/bin
-
+.PHONY: setup
 setup:
-	-stack setup
-	-stack build --dependencies-only --test --no-run-tests
-	-stack query
-	-stack ls dependencies
+	stack path
+	stack query
+	stack ls dependencies
 
-ghci:
-	@stack ghci --ghci-options -Wno-type-defaults
-
+.PHONY: clean
 clean:
 	@cabal clean
 	@stack clean
-	@$(RM) -rf $(TARGET).tix
 
 cleanall: clean
 	@stack purge
+	@rm -f stack.yaml.lock

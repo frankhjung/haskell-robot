@@ -2,7 +2,7 @@
 module Main (main) where
 
 import           Control.Monad   (liftM3)
-import           Robot           (HitPoint (..), Robot (..), damage, dead)
+import           Lib             (HitPoint (..), Robot (..), damage, dead)
 import           Test.QuickCheck
 
 -- | Arbitrary Robot.

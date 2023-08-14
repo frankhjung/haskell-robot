@@ -1,0 +1,57 @@
+cabal-version:      3.0
+
+name:               Robot
+version:            0.10.0
+description:        Robot fight code snippets.
+synopsis:           haskell example code
+homepage:           https://github.com/frankhjung/robot#readme
+
+author:             Frank H Jung
+maintainer:         frankhjung@linux.com
+copyright:          Copyright © 2018-2023 Frank H Jung
+license:            BSD-3-Clause
+license-file:       LICENSE
+category:           education
+extra-source-files: README.md
+
+source-repository head
+  type:             git
+  location:         git@github.com:frankhjung/haskell-robot.git
+
+library
+  exposed-modules:  Lib
+  hs-source-dirs:   src
+  ghc-options:      -Wall -Wcompat -Widentities -Wincomplete-record-updates
+                    -Wincomplete-uni-patterns -Wmissing-export-lists
+                    -Wmissing-home-modules -Wpartial-fields
+                    -Wredundant-constraints
+  default-language: Haskell2010
+  build-depends:    base
+
+executable          main
+  main-is:          Main.hs
+  other-modules:    Lib
+  hs-source-dirs:   app
+                  , src
+  ghc-options:      -Wall -Wcompat -Widentities -Wincomplete-record-updates
+                    -Wincomplete-uni-patterns -Wmissing-export-lists
+                    -Wmissing-home-modules -Wpartial-fields
+                    -Wredundant-constraints -threaded -rtsopts
+                    -with-rtsopts=-N
+  default-language: Haskell2010
+  build-depends:    base >= 4 && < 5
+
+test-suite 	        test
+  main-is:          Test.hs
+  other-modules:    Lib
+  hs-source-dirs:   test
+                  , src
+  ghc-options:      -Wall -Wcompat -Widentities -Wincomplete-record-updates
+                    -Wincomplete-uni-patterns -Wmissing-export-lists
+                    -Wmissing-home-modules -Wpartial-fields
+                    -Wredundant-constraints -threaded -rtsopts
+                    -with-rtsopts=-N
+  type:             exitcode-stdio-1.0
+  default-language: Haskell2010
+  build-depends:    base
+                  , QuickCheck

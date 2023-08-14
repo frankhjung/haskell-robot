@@ -1,3 +1,4 @@
+---
 # stylish-haskell configuration file
 # ==================================
 
@@ -100,8 +101,8 @@ steps:
       # Default: inherit
       empty_list_align: inherit
 
-      # List padding determines indentation of import list on lines after import.
-      # This option affects 'long_list_align'.
+      # List padding determines indentation of import list on lines after
+      # import. This option affects 'long_list_align'.
       #
       # - <integer>: constant value
       #
@@ -155,10 +156,10 @@ steps:
       remove_redundant: true
 
   # Replace tabs by spaces. This is disabled by default.
-  # - tabs:
-  #     # Number of spaces to use for each tab. Default: 8, as specified by the
-  #     # Haskell report.
-  #     spaces: 8
+  - tabs:
+      # Number of spaces to use for each tab. Default: 8, as specified by the
+      # Haskell report.
+      spaces: 2
 
   # Remove trailing whitespace
   - trailing_whitespace: {}
@@ -177,7 +178,7 @@ columns: 80
 # - crlf: Convert to CRLF ("\r\n").
 #
 # Default: native.
-newline: native
+newline: lf
 
 # Sometimes, language extensions are specified in a cabal file or from the
 # command line instead of using language pragmas in the file. stylish-haskell
@@ -185,5 +186,5 @@ newline: native
 #
 # No language extensions are enabled by default.
 # language_extensions:
-  # - TemplateHaskell
-  # - QuasiQuotes
+# - TemplateHaskell
+# - QuasiQuotes

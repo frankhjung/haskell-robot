@@ -1,11 +1,6 @@
 ---
-
-resolver: lts-19.27
-flags: {}
-allow-newer: true
-packages:
-extra-deps:
+resolver: lts-20.26
 arch: x86_64
-system-ghc: true
-extra-deps:
-  - QuickCheck-2.14.2
+flags: {}
+packages: ["."]
+allow-newer: true

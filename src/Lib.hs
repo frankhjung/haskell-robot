@@ -1,3 +1,4 @@
+{-# LANGUAGE DerivingStrategies         #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 
 {-|
@@ -10,7 +11,7 @@
   Portability : portable
 -}
 
-module Robot
+module Lib
         (
           -- * Data Types
           Robot (..)
@@ -33,7 +34,8 @@ data Robot =
         } deriving (Show)
 
 -- | Hit points are non-negative integers (i.e. Natural numbers).
-newtype HitPoint = HitPoint Word deriving (Eq, Num, Ord, Show)
+newtype HitPoint = HitPoint Word deriving stock (Eq, Ord, Show)
+                                 deriving newtype Num
 
 -- | Hit Point value of health when dead.
 dead :: HitPoint

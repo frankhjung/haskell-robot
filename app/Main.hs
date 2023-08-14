@@ -1,6 +1,6 @@
 module Main (main) where
 
-import           Robot (Robot (..), tournament)
+import           Lib (Robot (..), tournament)
 
 main :: IO ()
 main = do
