@@ -12,7 +12,7 @@ on:
 # yamllint enable
 
 env:
-  STACK_ROOT: ${{ github.workspace }}/.stack
+  STACK_ROOT: ${{ github.workspace }}/.stack-work
 
 jobs:
 
@@ -33,9 +33,7 @@ jobs:
       - name: cache
         uses: actions/cache@v3
         with:
-          path: |
-            .stack-work/
-            ${{ env.STACK_ROOT }}
+          path: ${{ env.STACK_ROOT }}
           key: ${{ github.ref }}
 
       - name: build
@@ -47,8 +45,8 @@ jobs:
       - name: haddock
         if: github.ref == 'refs/heads/master'
         run: |
-          stack haddock --no-haddock-deps Robot
-          mv $(stack path --local-install-root)/doc/Robot*/ public/
+          stack haddock
+          mv $(stack path --local-doc-root)/ public/
 
       - name: publish
         if: success() && github.ref == 'refs/heads/master'

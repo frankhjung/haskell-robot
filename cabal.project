@@ -1,2 +1,0 @@
-packages: robot.cabal
-with-compiler: ghc-9.0.2

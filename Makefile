@@ -5,23 +5,24 @@ SRCS	:= $(wildcard $(addsuffix *.hs, $(SUBS)))
 YAML	:= $(shell git ls-files | grep --perl \.y?ml)
 
 .PHONY: default
-default: check build test
+default: format check build test
 
 .PHONY: all
-all:	check build test doc exec
+all:	format check build test doc exec
+
+.PHONY: format
+format:
+	@echo format ...
+	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
+	@cabal-fmt --inplace Robot.cabal
 
 .PHONY: check
-check:	tags style lint
+check:	tags lint
 
 .PHONY: tags
 tags: $(SRC)
 	@echo tags ...
 	@hasktags --ctags --extendedctag $(SRCS)
-
-.PHONY: style
-style:
-	@echo style ...
-	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
 
 .PHONY: lint
 lint:
