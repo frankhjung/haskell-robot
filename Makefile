@@ -1,18 +1,16 @@
 #!/usr/bin/env make
 
-SUBS	:= $(wildcard */)
-SRCS	:= $(wildcard $(addsuffix *.hs, $(SUBS)))
-YAML	:= $(shell git ls-files | grep --perl \.y?ml)
+SRCS	:= $(wildcard *.hs **/*.hs)
+YAML	:= $(shell git ls-files "*.y*ml")
 
 .PHONY: default
-default: format check build test
+default: format check build test exec
 
 .PHONY: all
-all:	format check build test doc exec
+all:	default doc
 
 .PHONY: format
 format:
-	@echo format ...
 	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
 	@cabal-fmt --inplace Robot.cabal
 
@@ -21,34 +19,29 @@ check:	tags lint
 
 .PHONY: tags
 tags: $(SRC)
-	@echo tags ...
 	@hasktags --ctags --extendedctag $(SRCS)
 
 .PHONY: lint
 lint:
-	@echo lint ...
 	@cabal check
 	@hlint --cross --color --show $(SRCS)
 	@yamllint --strict $(YAML)
 
 .PHONY: build
 build:
-	@echo build ...
 	@stack build --pedantic --fast
 
 .PHONY: test
 test:
-	@echo test ...
 	@stack test --fast
 
 .PHONY: doc
 doc:
-	@echo doc ...
 	@stack haddock
 
 .PHONY: exec
 exec:
-	@stack exec main -- +RTS -s
+	@stack exec main
 
 .PHONY: setup
 setup:
