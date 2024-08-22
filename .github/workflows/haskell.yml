@@ -22,9 +22,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-
     steps:
 
       - name: checkout
@@ -37,12 +34,15 @@ jobs:
           key: ${{ github.ref }}
 
       - name: build
-        run: stack build --pedantic
+        run: stack build --pedantic --no-test
 
       - name: test
         run: stack test --coverage
 
-      - name: haddock
+      - name: exec
+        run: stack exec robot
+
+      - name: doc
         if: github.ref == 'refs/heads/master'
         run: |
           stack haddock

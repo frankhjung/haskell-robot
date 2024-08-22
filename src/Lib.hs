@@ -4,7 +4,7 @@
 {-|
   Module      : Robot
   Description : Test fighting robots.
-  Copyright   : © Frank Jung, 2018-2023
+  Copyright   : © Frank Jung, 2018-2024
   License     : BSD-3
   Maintainer  : frankhjung@linux.com
   Stability   : stable

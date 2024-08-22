@@ -1,59 +1,64 @@
 #!/usr/bin/env make
 
-SRCS	:= $(wildcard *.hs **/*.hs)
-YAML	:= $(shell git ls-files "*.y*ml")
+.DEFAULT_GOAL	:= default
+
+TARGET:= robot
+CABAL	:= Robot.cabal
+SRCS	:= $(wildcard */*.hs)
 
 .PHONY: default
-default: format check build test exec
+default: tags format lint build test
 
 .PHONY: all
-all:	default doc
-
-.PHONY: format
-format:
-	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
-	@cabal-fmt --inplace Robot.cabal
-
-.PHONY: check
-check:	tags lint
+all:	tags format lint build test doc exec
 
 .PHONY: tags
-tags: $(SRC)
+tags:	$(SRCS)
+	@echo tags ...
 	@hasktags --ctags --extendedctag $(SRCS)
 
+.PHONY: format
+format:	$(SRCS)
+	@echo format ...
+	@cabal-fmt --inplace $(CABAL)
+	@stylish-haskell --inplace $(SRCS)
+
 .PHONY: lint
-lint:
-	@cabal check
+lint:	$(SRCS)
+	@echo lint ...
 	@hlint --cross --color --show $(SRCS)
-	@yamllint --strict $(YAML)
+	@cabal check
 
 .PHONY: build
-build:
-	@stack build --pedantic --fast
+build:  $(SRCS)
+	@cabal build
 
 .PHONY: test
 test:
-	@stack test --fast
+	@cabal test --test-show-details=direct
 
 .PHONY: doc
 doc:
-	@stack haddock
+	@cabal haddock --haddock-quickjump --haddock-hyperlink-source
 
 .PHONY: exec
 exec:
-	@stack exec main
+	@cabal exec $(TARGET)
 
 .PHONY: setup
 setup:
-	stack path
-	stack query
-	stack ls dependencies
+	-touch -d "2018-10-10T10:42:16UTC" LICENSE
+ifeq (,$(wildcard ${CABAL_CONFIG}))
+	-cabal user-config init
+	-cabal update --only-dependencies
+else
+	@echo Using user-config from ${CABAL_CONFIG} ...
+endif
 
 .PHONY: clean
 clean:
 	@cabal clean
-	@stack clean
 
-cleanall: clean
-	@stack purge
-	@rm -f stack.yaml.lock
+.PHONY: distclean
+distclean: clean
+	@$(RM) tags
